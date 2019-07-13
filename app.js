@@ -14,10 +14,10 @@ app.set('views','views');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(ex.static(path.join(dirname,'public')));
+app.use(ex.static(path.join(dirname,'node_modules')));
 
 
 
 app.use(shopRoutes);
-// app.use(productController);
 
 app.listen(3000);

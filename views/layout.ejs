@@ -4,9 +4,12 @@
         <title></title>
         <meta charset="UTF-8">
         <%# <meta name="viewport" content="width=device-width, initial-scale=1"> %>
+        <%- include('head.ejs') %>
     </head>
-    <h4>this is layout</h4>
+    <%- include('header.ejs') -%>
     <body>
         <%- body %>
     </body>
+    <%- include('footer.ejs') -%>
+
 </html>
