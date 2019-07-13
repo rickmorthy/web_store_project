@@ -1,7 +1,7 @@
-const Product = require('../models/product');
+const Product = require('../models/shop');
 
 exports.getIndex = (req,res,next) => {
-       res.render('shop/all');
+       res.render('all');
 };
 
 exports.productList = (req,res,next) => {
@@ -12,7 +12,7 @@ exports.productList = (req,res,next) => {
    })
 };
 
-exports.productDetail = (req,res,next) => {
+exports.productDetails = (req,res,next) => {
    Product.productId(prod => {
        res.render('/shop/productDetail',{
            product:prod,
