@@ -19,11 +19,15 @@ exports.getIndex = (req,res,next) => {
 };
 
 exports.productList = (req,res,next) => {
-   Product.fetchAll(prod => {
-       res.render('/shop/product-list',{
-           products: prod
-       })
-   })
+   Product.findAll()
+          .then(prod => {
+            res.render('shop/product-list',{
+            product: prod
+            })
+          }).catch((err) => {
+              console.log(err);
+              
+          })
 };
 
 exports.productDetails = (req,res,next) => {
