@@ -1,11 +1,21 @@
-<div class="card-columns">
-<%if(product.length > 0){%>
-  <div class="card">
-    <img src="<%=product.img%>" class="card-img-top" alt="">
-    <div class="card-body">
-      <h5 class="card-title"><%= product.title%></h5>
-      <p class="card-text"><%=product.discription%></p>
+    <div class="card-columns ">
+        <%if(product.length > 0){%>
+            <%for(let prod of product){%>
+                <div class="card">
+                    <img src="<%= prod.imageUrl %>" class="card-img-top" alt="">
+                     <div class="card-body">
+                        <h5 class="card-title"><%= prod.title%></h5>
+                        <p class="card-text"><%=prod.description%></p>
+                        <div class="row">
+                            <div class="col-2">
+                                <a href="products/<%=prod.id%>" class="btn btn-outline-secondary">Details</a>
+                            </div>
+                             <div class="col-3">
+                                <%-include('../include/add-to-cart',{product:prod})%>
+                             </div>
+                        </div>    
+                    </div>
+                </div>
+            <%}%>
+        <%}else{ include('/notfound.ejs')}%>
     </div>
-  </div>
-  <%}%>
-</div>

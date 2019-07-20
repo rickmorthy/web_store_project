@@ -4,22 +4,26 @@ const expressLayouts = require('express-ejs-layouts');
 const sequelize = require('./util/db');
 
 let bodyParser = require('body-parser');
-let dirname = path.dirname(process.mainModule.filename); 
+// let dirname = path.dirname(process.mainModule.filename); 
 
 const app = ex();
 
 const shopRoutes = require('./routes/shop');
+const adminRoutes = require('./routes/admin');
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(expressLayouts);
 app.set('view engine','ejs');
 app.set('views','views');
+// console.log(__dirname);
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(ex.static(path.join(dirname,'public')));
-app.use(ex.static(path.join(dirname,'node_modules')));
-app.use(ex.static(path.join(dirname,'media')));
+app.use('/public',ex.static(path.join(__dirname, 'public')));
+app.use('/script',ex.static(path.join(__dirname,'node_modules')));
+app.use('/media',ex.static(path.join(__dirname,'media')));
 
 
 
+app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
 sequelize

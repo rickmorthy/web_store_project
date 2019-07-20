@@ -21,6 +21,8 @@ exports.getIndex = (req,res,next) => {
 exports.productList = (req,res,next) => {
    Product.findAll()
           .then(prod => {
+              console.log(prod);
+              
             res.render('shop/product-list',{
             product: prod
             })
@@ -31,10 +33,15 @@ exports.productList = (req,res,next) => {
 };
 
 exports.productDetails = (req,res,next) => {
-//    Product.productId(prod => {
-//        res.render('/shop/productDetail',{
-//            product:prod,
-//            title:prod.title
-//        })
-//    })
+   const id = req.params.id;
+   console.log('THIS IS ID => '+id);
+   Product.findByPk(id).then(prod => {
+       
+    res.render('shop/product-detail',{
+        product:prod,
+        title:prod.title
+    }).catch(err => {
+        console.log(err);
+    })
+})
 };

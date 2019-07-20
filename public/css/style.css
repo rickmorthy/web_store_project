@@ -11,3 +11,9 @@
   width: auto;
   margin: 0 auto; /* it centers any block level element */
 }
+.prod_action > *{
+  margin-right: 15px;
+}
+.container-fluid{
+  padding-top: 25px ;
+}

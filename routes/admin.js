@@ -1,8 +1,12 @@
-const Product = require('../models/shop');
+const express = require('express');
 
-exports.getAddProduct = (req,res,next) => {
-    res.render('admin/add-product',{
-        title:'Add product',
-        editing:false
-    })
-}
+const router = express.Router();
+const controller = require('../controllers/admin');
+
+router.get('/',controller.adminMenu);
+router.get('/add-product',controller.getAddProduct);
+router.post('/add-product',controller.postAddProduct);
+router.get('/products',controller.getAllProducts);
+router.get('/edit-product/:id',controller.getEditProduct);
+
+module.exports = router;
