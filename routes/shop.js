@@ -7,4 +7,5 @@ router.get('/',shop.getIndex);
 router.get('/products',shop.productList);
 router.get('/products/:id',shop.productDetails);
 
+
 module.exports = router;

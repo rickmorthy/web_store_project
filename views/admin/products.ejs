@@ -15,10 +15,7 @@
                                     <a href="/admin/edit-product/<%= prod.id %>?edit=true" class="btn btn-outline-secondary">Edit</a>
                                 </div>  
                                 <div class="col-3">
-                                        <form action="/admin/delete-product" method="POST">
-                                            <input type="hidden" value="<%= product.id %>" name="id">
-                                            <button class="btn btn-outline-danger" type="submit">Delete</button>
-                                        </form>
+                                        <%- include('../include/delete',{id:prod.id})%>
                                 </div>   
                             </div>    
                         </div>
