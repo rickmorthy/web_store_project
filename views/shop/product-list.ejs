@@ -6,13 +6,14 @@
                      <div class="card-body">
                         <h5 class="card-title"><%= prod.title%></h5>
                         <p class="card-text"><%=prod.description%></p>
-                        <div class="row">
-                            <div class="col-2">
-                                <a href="products/<%=prod.id%>" class="btn btn-outline-secondary">Details</a>
-                            </div>
-                             <div class="col-3">
-                                <%-include('../include/add-to-cart',{product:prod})%>
-                             </div>
+                        <a href="products/<%=prod.id%>" class="btn btn-outline-secondary">Details</a>
+                        <div class=" btn-grp-flex">
+                                <form action="/cart" method="POST">
+                                <%- include('../include/btn-grp',{qnt:1})%>
+                                    <button class="btn btn-outline-success">To cart</button>
+                                    <input type="hidden" name="id" value="<%=prod.id%>">
+                                </form>
+
                         </div>    
                     </div>
                 </div>

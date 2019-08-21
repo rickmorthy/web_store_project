@@ -45,14 +45,33 @@ exports.productDetails = (req,res,next) => {
 
 exports.postCart = (req,res,next) => {
     const id = req.body.id;
-    // let test = req.user;
-    console.log(req.user.cart);
-    
+    const quantity = req.body.quantity;
+    let local_cart;
+
+    // Product.findAll({where:{id:id}})
+    Product.findByPk(id)
+    .then(result => {
+        console.log('HERE');
+        console.log(result);
+        
+    });
+    // return Product.findByPk(id);
+            // console.log(prod);
     req.user
         .getCart()
         .then(cart => {
-            console.log(cart);
-            return cart.addProducts(cart);
+            local_cart = cart;
+        })
+        .then(item => {
+            return Product.findByPk(id) 
+        })
+        .then(product => {
+            return local_cart.addProducts(product,{
+                through:{quantity:quantity}
+            });
+        })
+        .then(result => {
+            res.redirect('products');
         })
         .catch(err => {
             console.log(err);
@@ -63,26 +82,52 @@ exports.postCart = (req,res,next) => {
 };
 
 exports.getCart = (req,res,next) => {
-    // console.log(req.user.getCart());
+    console.log(req.user.cart);
     
     req.user
     .getCart()
     .then(cart => {
-        console.log(cart);
         
         return cart
             .getProducts()
             .then(product => {
+                console.log(product);
+                
                 res.render('shop/cart',{
                     product:product,
                     title:'My cart'
                 })
+            })
             .catch(err => {
                 console.log(err);
             })    
-            })
     })
     .catch(err => {
         console.log(err);
     })
 };
+
+exports.postDeleteCartItem = (req,res,next) => {
+    let id = req.body.id;
+    req.user
+    .getCart()
+    .then(cart => {
+        console.log(cart);
+        
+        return cart.getProducts({where:{id:id}});
+    })
+    .then(product => {
+        // console.log('PRODUCT');
+        // console.log(product[0]);
+        // console.log('END PRODUCT');
+        return product[0].cartItem.destroy();
+    })
+    .then(result => {
+        console.log('REDIRECT');
+        
+        res.redirect('/cart');
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}

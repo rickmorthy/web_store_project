@@ -42,6 +42,7 @@ const shopRoutes = require('./routes/shop');
 const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
@@ -71,13 +72,16 @@ sequelize
     return user;
 })
 .then(user => {
-    return user.createCart();
-})
-.then((result) => {
-    app.listen(3000);
+    user.getCart()
+    .then(cart => {
+        if (!cart) {
+            return user.createCart();
+        }
+    });
+
 })
 .catch(err => {
     // console.log(err);
 });
-
 //LISTEN
+app.listen(3000);
